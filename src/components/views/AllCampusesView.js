@@ -8,6 +8,8 @@ const AllCampusesView = (props) => {
 
   return (
     <div>
+    <Link to="/newcampus"><button>Add Campus</button></Link>
+    <div>
       {props.allCampuses.map((campus) => (
         <div key={campus.id}>
           <Link to={`/campus/${campus.id}`}>
@@ -16,6 +18,7 @@ const AllCampusesView = (props) => {
           <p>{campus.description}</p>
         </div>
       ))}
+    </div>
     </div>
   );
 };

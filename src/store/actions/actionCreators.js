@@ -8,7 +8,7 @@ import * as at from './actionTypes';
 // All campuses
 export const fetchAllCampuses = (campuses) => {
   return {
-    type: at.FETCH_ALL_CAMPUSES,
+    type: at.FETCH_ALL_CAMPUSES, //what is this at?
     payload: campuses,
   };
 };
@@ -33,6 +33,13 @@ export const addStudent = (student) => {
   return {
     type: at.ADD_STUDENT,
     payload: student,
+  };
+};
+
+export const addCampus = (campus) => {
+  return {
+    type: at.ADD_CAMPUS,
+    payload: campus,
   };
 };
 

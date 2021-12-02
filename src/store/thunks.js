@@ -7,13 +7,14 @@ const axios = require('axios');
 export const fetchAllCampusesThunk = () => async (dispatch) => {
   try {
     let res = await axios.get(`/api/campuses`);
-    dispatch(ac.fetchAllCampuses(res.data));
+    dispatch(ac.fetchAllCampuses(res.data)); //what is this ac?
   } catch(err) {
     console.error(err);
   }
 };
 
 //Single campus
+//why is there an id in the parameter?
 export const fetchCampusThunk = (id) => async (dispatch) => {
   // thunk creator would not an be async function 
   // if using Promise.then:
@@ -44,6 +45,16 @@ export const addStudentThunk = (student) => async (dispatch) => {
   try {
     let res = await axios.post(`/api/students`, student);
     dispatch(ac.addStudent(res.data));
+    return res.data;
+  } catch(err) {
+    console.error(err);
+  }
+};
+
+export const addCampusThunk = (campus) => async (dispatch) => {
+  try {
+    let res = await axios.post(`/api/campuses`, campus);
+    dispatch(ac.addCampus(res.data));
     return res.data;
   } catch(err) {
     console.error(err);

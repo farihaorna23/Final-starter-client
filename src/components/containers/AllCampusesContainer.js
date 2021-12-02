@@ -7,7 +7,7 @@ import { AllCampusesView } from "../views";
 class AllCampusesContainer extends Component {
   componentDidMount() {
     console.log(this.props);
-    this.props.fetchAllCampuses();
+    this.props.fetchAllCampuses(); //??
   }
 
   render() {
@@ -20,6 +20,7 @@ class AllCampusesContainer extends Component {
 }
 
 // Map state to props;
+//is this how are we gonna access our state in our component?
 const mapState = (state) => {
   return {
     allCampuses: state.allCampuses,
@@ -27,6 +28,7 @@ const mapState = (state) => {
 };
 
 // Map dispatch to props;
+//the thunk will dispatch to update the state due to on an onclick functionality?
 const mapDispatch = (dispatch) => {
   return {
     fetchAllCampuses: () => dispatch(fetchAllCampusesThunk()),
