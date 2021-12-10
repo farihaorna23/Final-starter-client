@@ -51,7 +51,6 @@ class NewStudentContainer extends Component {
       email:this.state.email,
       imageUrl:this.state.imageUrl,
       gpa:this.state.gpa,
-      campusname:this.state.campusname
     };
 
     let newStudent = await this.props.addStudent(student);
