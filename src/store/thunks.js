@@ -31,6 +31,15 @@ export const fetchCampusThunk = (id) => async (dispatch) => {
   }
 };
 
+export const editCampusThunk = campus => async dispatch => {
+  try {
+    let updatedCampus = await axios.put(`http://localhost:5000/api/campuses/${campus.id}`, campus);
+    dispatch(ac.editCampus(updatedCampus.data));
+  } catch(err) {
+    console.error(err);
+  }
+};
+
 //All students
 export const fetchAllStudentsThunk = () => async (dispatch) => {
   try {
