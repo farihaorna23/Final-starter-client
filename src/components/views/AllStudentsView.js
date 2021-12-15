@@ -19,11 +19,11 @@ const AllStudentsView = (props) => {
       {students.map((student) => {
         let name = student.firstname + " " + student.lastname;
         return (
-          <div key={student.id}>
+          <div key={student.id} style={{display:"flex"}}>
           <Link to={`/student/${student.id}`}>
             <h1>{name}</h1>
           </Link>
-          <button onClick={() => deleteStudent(student.id)}>Delete</button>
+          <button className="ml-4" style={{border:"none", backgroundColor:"transparent"}} onClick={() => deleteStudent(student.id)}><i style={{color:"red", fontSize:"28px"}} className="fas fa-times-circle"></i></button>
           </div>
         );
       }
