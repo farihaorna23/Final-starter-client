@@ -32,7 +32,7 @@ const CampusView = (props) => {
       <button onClick={handleShow}>Edit Campus Information</button>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+          <Modal.Title>Campus Information</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={(e)=>{

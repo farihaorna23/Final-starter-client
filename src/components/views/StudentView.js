@@ -14,7 +14,7 @@ const StudentView = (props) => {
     <div>
       <img src={student.imgUrl ? student.imgUrl : `${process.env.PUBLIC_URL}/img/userprofile.png`} alt={student.firstname} />
       <h1 className="studentinfo">{student.firstname + " " + student.lastname}</h1>
-      {student.campusId ? <h3><Link className="studentinfo" to={`/campus/${student.campusId}`}>{student.campus.name}</Link></h3> : <h3 className="studentinfo">The student doesn't have a campus</h3>}
+      {student.campusId ? <h3><Link className="studentinfo" to={`/campus/${student.campusId}`}>{student.campus.name}</Link></h3> : <h3 className="studentinfo">The student isn't enrolled in any campus</h3>}
       <p className="studentinfo">Email: {student.email}</p>
       {student.gpa && <p className="studentinfo"> GPA: {student.gpa}</p>}
       <button onClick={handleShow}>Edit Student Information</button>

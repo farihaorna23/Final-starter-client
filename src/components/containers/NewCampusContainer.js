@@ -4,7 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import NewCampusView from '../views/NewCampusView';
 import { addCampusThunk,} from '../../store/thunks';
-
+import { Modal } from 'react-bootstrap'
 
 
 class NewCampusContainer extends Component {
@@ -16,11 +16,15 @@ class NewCampusContainer extends Component {
             address: "",
             imageUrl: "",
             redirect: false,
-            redirectId: null
+            redirectId: null,
+            show:false,
+            errormsg:"",
         };
     }
     
-   
+
+    handleClose = () => this.setState({show:false})
+    handleShow = () => this.setState({show:true})
 
     handleChange = event => {
         this.setState({
@@ -30,6 +34,16 @@ class NewCampusContainer extends Component {
 
     handleSubmit = async event => {
         event.preventDefault();
+        if(!this.state.name)
+        {
+            this.setState({errormsg: "Campus Name is required" , show:true})
+            return
+        }
+        if(!this.state.address)
+        {
+            this.setState({errormsg: "Address is required" , show:true})
+            return
+        }
 
         let campus = {
             name: this.state.name,
@@ -60,6 +74,7 @@ class NewCampusContainer extends Component {
             return (<Redirect to={`/campus/${this.state.redirectId}`} />)
         }
         return (
+            <>
             <NewCampusView
                 name={this.state.name}
                 address={this.state.adress}
@@ -68,6 +83,16 @@ class NewCampusContainer extends Component {
                 handleChange={this.handleChange}
                 handleSubmit={this.handleSubmit}
             />
+
+        <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+        <Modal.Title>Missing Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {this.state.errormsg}
+        </Modal.Body>
+      </Modal>
+      </>
         );
     }
 }

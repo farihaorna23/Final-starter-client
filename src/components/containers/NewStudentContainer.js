@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
 import NewStudentView from '../views/NewStudentView';
 import { addStudentThunk, fetchAllCampusesThunk } from '../../store/thunks';
+import { Modal } from 'react-bootstrap'
 
 
 class NewStudentContainer extends Component {
@@ -44,6 +45,22 @@ class NewStudentContainer extends Component {
   handleSubmit = async event => {
     event.preventDefault();
 
+    if(!this.state.firstname)
+        {
+            this.setState({errormsg: "First Name is required" , show:true})
+            return
+        }
+        if(!this.state.lastname)
+        {
+            this.setState({errormsg: "Last Name is required" , show:true})
+            return
+        }
+        if(!this.state.email)
+        {
+            this.setState({errormsg: "Email is required" , show:true})
+            return
+        }
+
     let student = {
       firstname: this.state.firstname,
       lastname: this.state.lastname,
@@ -64,9 +81,14 @@ class NewStudentContainer extends Component {
       campusId: null,
       campusname:"",
       redirect: true,
-      redirectId: newStudent.id
+      redirectId: newStudent.id,
+      show:false,
+      errormsg:"",
     });
   }
+
+  handleClose = () => this.setState({show:false})
+  handleShow = () => this.setState({show:true})
 
   componentWillUnmount() {
     this.setState({ redirect: false, redirectId: null });
@@ -77,6 +99,7 @@ class NewStudentContainer extends Component {
       return (<Redirect to={`/student/${this.state.redirectId}`} />)
     }
     return (
+      <>
       <NewStudentView
         firstname={this.state.firstname}
         lastname={this.state.lastname}
@@ -89,6 +112,15 @@ class NewStudentContainer extends Component {
         handleChange={this.handleChange}
         handleSubmit={this.handleSubmit}
       />
+         <Modal show={this.state.show} onHide={this.handleClose}>
+        <Modal.Header closeButton>
+        <Modal.Title>Missing Information</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {this.state.errormsg}
+        </Modal.Body>
+      </Modal>
+      </>
     );
   }
 }

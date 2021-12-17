@@ -2,13 +2,10 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
 const AllCampusesView = (props) => {
-  if (!props.allCampuses.length) {
-    return <div>There are no campuses.</div>;
-  }
   
   return (
     <div>
-    <Link to="/newcampus"><button>Add Campus</button></Link>
+    {props.allCampuses.length ? (
     <div>
       {props.allCampuses.map((campus) => (
         <div key={campus.id}>
@@ -22,7 +19,10 @@ const AllCampusesView = (props) => {
         </div>
       ))}
     </div>
+    ) : <div>There are no campuses.</div>}
+    <Link to="/newcampus"><button>Add Campus</button></Link>
     </div>
+
   );
 };
 

@@ -33,7 +33,7 @@ class StudentContainer extends Component {
         email:this.props.student.email, 
         imageUrl:this.props.student.imageUrl,
         gpa:this.props.student.gpa,
-        campusname:this.props.student.campus.name,
+        campusname:this.props.student.campus ? this.props.student.campus.name : "",
         campusId:this.props.student.campusId
       })
     }
