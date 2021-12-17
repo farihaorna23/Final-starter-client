@@ -6,16 +6,16 @@ const AllCampusesView = (props) => {
   return (
     <div>
     {props.allCampuses.length ? (
-    <div>
+    <div >
       {props.allCampuses.map((campus) => (
-        <div key={campus.id}>
+        <div style={{width:"450px"}} key={campus.id}>
           <div style={{display:"flex"}}>
           <Link to={`/campus/${campus.id}`}>
             <h1>{campus.name}</h1>
           </Link>
           <button style={{border:"none", backgroundColor:"transparent"}} onClick={() => props.deleteCampus(campus.id)}><i style={{color:"red", fontSize:"28px"}} className="fas fa-times-circle"></i></button>
           </div>
-          <img src={campus.imgUrl ? campus.imgUrl : `${process.env.PUBLIC_URL}/img/College.jpeg`}/>
+          <img style={{width:"100%"}} src={campus.imageUrl ? campus.imageUrl : `${process.env.PUBLIC_URL}/img/College.jpeg`}/>
         </div>
       ))}
     </div>
