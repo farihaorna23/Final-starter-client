@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const AllStudentsView = (props) => {
   const {students, deleteStudent} = props;
 
   if (!students.length) {
     return (
-    <div>
+    <div style={{ minHeight: "calc(100vh - 114px)"}}>
       <p>There are no students.</p>
       <Link to='/newstudent'>
         <button>Add New Student</button>
@@ -15,7 +16,7 @@ const AllStudentsView = (props) => {
   }
   
   return (
-    <div>
+    <div style={{ minHeight: "calc(100vh - 114px)"}}>
       {students.map((student) => {
         let name = student.firstname + " " + student.lastname;
         return (
@@ -29,7 +30,7 @@ const AllStudentsView = (props) => {
       }
       )}
       <Link to={`/newstudent`}>
-        <button>Add New Student</button>
+      <Button variant="contained" style={{ margin: "10px 0px" , backgroundColor: "#B97A95", color: "white" }}>Add Student</Button>
       </Link>
     </div>
   );

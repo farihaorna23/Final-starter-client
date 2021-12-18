@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import {Button} from "react-bootstrap";
 
 const AllCampusesView = (props) => {
   
   return (
-    <div>
+    <div style={{ minHeight: "calc(100vh - 114px)"}}>
     {props.allCampuses.length ? (
     <div >
       {props.allCampuses.map((campus) => (
@@ -20,7 +21,7 @@ const AllCampusesView = (props) => {
       ))}
     </div>
     ) : <div>There are no campuses.</div>}
-    <Link to="/newcampus"><button>Add Campus</button></Link>
+    <Link to="/newcampus"><Button variant="contained" style={{ margin: "10px 0px" , backgroundColor: "#B97A95", color: "white" }}>Add Campus</Button></Link>
     </div>
 
   );

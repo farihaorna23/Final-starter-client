@@ -4,14 +4,13 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { useState } from "react"
 
 const CampusView = (props) => {
-  const { campus, name, address, imageUrl, description, submitUpdate, handleChange, handleStudentRemove } = props;
-  const [show, setShow] = useState(false);
+  const { campus, name, address, imageUrl, description, submitUpdate, handleChange, handleStudentRemove, allStudents, handleStudentAdd, errormsg, showerror, showmodal, handleShow, handleClose } = props;
   const [showDropDown, setShowDropDown] =useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const [selectStudent, setSelectStudent]= useState("");
+  
 
   return (
-    <div>
+    <div style={{ minHeight: "calc(100vh - 114px)"}}>
       <img src={campus.imageUrl ? campus.imageUrl : `${process.env.PUBLIC_URL}/img/College.jpeg`} />
       <p className="campusinfo"> Campus Name: {campus.name}</p>
       <p className="campusinfo"> Description: {campus.description}</p>
@@ -34,17 +33,20 @@ const CampusView = (props) => {
       ) : (
           <p className="campusinfo">There is no students associated with this campus</p>
         )}
-      <button onClick={()=>setShowDropDown(true)}>Enroll A Student</button>
-      <button onClick={handleShow}>Edit Campus Information</button>
+      <Button variant="contained" style={{ margin: "10px 10px 10px 0px" , backgroundColor: "#B97A95", color: "white" }} onClick={()=>setShowDropDown(true)}>Enroll A Student</Button>
+      <Button variant="contained" style={{ margin: "10px 0px" , backgroundColor: "#B97A95", color: "white" }} onClick={handleShow}>Edit Campus Information</Button>
       {showDropDown && (
         <div>
-      <select>
-        <option>Select A Studeny</option>
+      <select style={{height: "35px", backgroundColor: "#B97A95", color: "white"}} onChange={(e)=> setSelectStudent(e.target.value)} value={selectStudent}>
+        <option>Select A Student</option>
+        {allStudents.map(student =>{
+              return <option value={student.id}  key={student.id}>{student.firstname} {student.lastname}</option>
+            })}
       </select>
-      <button>Enroll</button>
+      <Button variant="contained" style={{ margin: "10px 0px" , backgroundColor: "#B97A95", color: "white" }} onClick={()=>handleStudentAdd(selectStudent)}>Enroll</Button>
       </div>
       )}
-      <Modal show={show} onHide={handleClose}>
+      <Modal show={showmodal} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>Campus Information</Modal.Title>
         </Modal.Header>
@@ -56,10 +58,12 @@ const CampusView = (props) => {
             <Form.Group className="mb-3" controlId="formBasicName">
               <Form.Label>Campus Name: </Form.Label>
               <Form.Control type="text" value={name} name="name" placeholder="Enter Campus Name" onChange={handleChange} />
+              { showerror && errormsg === "Campus Name is required" && <Form.Text  style={{color:"red", marginLeft: "5px" }}>{errormsg} </Form.Text>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicAddress">
               <Form.Label>Address: </Form.Label>
               <Form.Control type="text" value={address} name="address" placeholder="Enter Adress" onChange={handleChange} />
+              { showerror && errormsg === "Address is required" && <Form.Text style={{color:"red", marginLeft: "5px" }}>{errormsg} </Form.Text>}
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicDescription">
               <Form.Label> Description: </Form.Label>
@@ -70,7 +74,7 @@ const CampusView = (props) => {
               <Form.Control type="text" value={imageUrl} name="imageUrl" placeholder="Enter Image Address" onChange={handleChange} />
             </Form.Group>
             
-            <Button variant="primary" type="submit">
+            <Button variant="primary" type="submit" disabled={showerror}>
               Submit
             </Button>
           </Form>

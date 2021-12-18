@@ -1,5 +1,6 @@
 import "./App.css";
 import Navbar from "./components/Navbar"
+import Footer from "./components/Footer"
 
 //Router
 import { Switch, Route } from "react-router-dom";
@@ -30,8 +31,9 @@ const App = () => {
         <Route exact path="/newstudent" component={NewStudentContainer} />
         <Route exact path="/newcampus" component={NewCampusContainer} />
         <Route exact path="/student/:id" component={StudentContainer} />
-
-      </Switch>        
+        
+      </Switch>    
+        <Footer/>
     </div>
   );
 }

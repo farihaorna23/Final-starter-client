@@ -36,7 +36,7 @@ const NewStudentView = (props) => {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
+    <div style={{ minHeight: "calc(100vh - 114px)"}} className={classes.root}>
       <div className={classes.formContainer}>
         <div className={classes.formTitle}>
           <Typography style={{ fontWeight: 'bold', fontFamily: 'Courier, sans-serif', fontSize: '20px', color: '#11153e' }}>

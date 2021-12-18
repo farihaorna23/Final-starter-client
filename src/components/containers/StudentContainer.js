@@ -14,6 +14,8 @@ class StudentContainer extends Component {
       gpa:null,
       campusname:"",
       campusId: null,
+      errormsg:"",
+      showerror:false,
       redirect: false,
       redirectId: null
     };
@@ -56,6 +58,40 @@ class StudentContainer extends Component {
         campusId:foundcampus.id
       })
     }
+
+    if(e.target.name==="firstname")
+    {
+      if(e.target.value==="")
+      {
+        this.setState({errormsg: "First name is required", showerror:true})
+
+      }
+      else{
+        this.setState({errormsg: "", showerror:false})
+      }
+    }
+
+    if(e.target.name==="lastname")
+    {
+      if(e.target.value==="")
+      {
+        this.setState({errormsg: "Last name is required", showerror:true})
+      }
+      else{
+        this.setState({errormsg: "", showerror:false})
+      }
+    }
+
+    if(e.target.name==="email")
+    {
+      if(e.target.value==="")
+      {
+        this.setState({errormsg: "Email is required", showerror:true})
+      }
+      else{
+        this.setState({errormsg: "", showerror:false})
+      }
+    }
   }
 
   render() {
@@ -72,6 +108,8 @@ class StudentContainer extends Component {
         campusId={this.state.campusId}
         handleChange={this.handleChange}
         allCampuses={this.props.allCampuses}
+        errormsg={this.state.errormsg}
+        showerror={this.state.showerror}
       />
     );
   }

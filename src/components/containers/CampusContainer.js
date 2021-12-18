@@ -15,6 +15,9 @@ class CampusContainer extends Component {
         imageUrl: "",
         redirect: false,
         redirectId: null,
+        errormsg:"",
+        showerror:false,
+        showmodal:false,
     };
 }
 
@@ -41,10 +44,13 @@ class CampusContainer extends Component {
     }
   }
 
+  handleClose = () => this.setState({showmodal:false});
+  handleShow = () => this.setState({showmodal:true});
+
   submitUpdate=(e,campus)=>{
     e.preventDefault();
-    this.props.editCampus(campus);
 
+    this.props.editCampus(campus);
   }
 
   handleStudentRemove=(student)=>{
@@ -52,10 +58,38 @@ class CampusContainer extends Component {
     this.props.editStudent(student);
   }
 
+  handleStudentAdd=(studentid)=>{
+    let student=this.props.allStudents.find((stu)=>stu.id==studentid)
+    student.campusId= this.props.campus.id
+    this.props.editStudent(student);
+  }
+
   handleChange=(e)=>{
     this.setState({
     [e.target.name]: e.target.value
     })
+    if(e.target.name==="name")
+    {
+      if(e.target.value==="")
+      {
+        this.setState({errormsg: "Campus Name is required", showerror:true})
+
+      }
+      else{
+        this.setState({errormsg: "", showerror:false})
+      }
+    }
+
+    if(e.target.name==="address")
+    {
+      if(e.target.value==="")
+      {
+        this.setState({errormsg: "Address is required", showerror:true})
+      }
+      else{
+        this.setState({errormsg: "", showerror:false})
+      }
+    }
   }
 
   render() {
@@ -69,6 +103,13 @@ class CampusContainer extends Component {
         address={this.state.address}
         handleChange={this.handleChange}
         handleStudentRemove={this.handleStudentRemove}
+        allStudents={this.props.allStudents}
+        handleStudentAdd={this.handleStudentAdd}
+        errormsg={this.state.errormsg}
+        showerror={this.state.showerror}
+        showmodal={this.state.showmodal}
+        handleClose={this.handleClose}
+        handleShow={this.handleShow}
       />
     );
   }
